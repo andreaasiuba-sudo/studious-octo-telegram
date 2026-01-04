@@ -3,8 +3,8 @@ import { Product } from "./types";
 export const products: Product[] = [
   {
     id: "1",
-    slug: "collar-riviera-dreams",
-    name: "Collar Riviera Dreams",
+    slug: "collar-cote-azul-dream",
+    name: "Collar Côte d'Azur Dream",
     price: 14.95,
     description: "Inspirado en los atardeceres de la Costa Azul francesa. Este collar artesanal combina cuentas en tonos tierra con una estrella marina azul cobalto que evoca las aguas cristalinas del Mediterráneo.",
     shortDescription: "Elegancia costera mediterránea",
@@ -26,12 +26,10 @@ export const products: Product[] = [
     category: "pulseras", 
     materials: ["hecho-a-mano"],
     images: ["/images/azulejo-portugues-1.jpg", "/images/azulejo-portugues-2.jpg", "/images/azulejo-portugues-3.jpg"],
-    tags: ["especial", "regalo"],
+    tags: ["nuevo", "regalo"],
     details: "Hecho a mano | Estilo portugués clásico",
     care: "Una pieza eterna para tu hogar.",
     stock: 5,
-    isSpecial: true,
-    specialEdition: "Pieza Única",
   },
   {
     id: "3",
@@ -42,11 +40,28 @@ export const products: Product[] = [
     shortDescription: "Color y energía artesanal",
     category: "collares",
     materials: ["hecho-a-mano"],
-    images: ["/images/collar-amsterdam-1.jpg", "/images/collar-amsterdam-2.jpg"],
-    tags: ["nuevo", "especial"],
+    images: ["/images/collar-amsterdam-1.jpg", "/images/collar-amsterdam-2.jpg", "/images/collar-amsterdam-3.jpg"],
+    tags: [],
     details: "Hecho a mano con cuentas de colores",
     care: "Límpialo con cariño y guárdalo en un lugar seco.",
     stock: 7,
+  },
+  {
+    id: "4",
+    slug: "experiencia-misteriosa",
+    name: "Experiencia Misteriosa",
+    price: 0,
+    description: "Algo extraordinario te aguarda en este lugar. Solo la persona más curiosa descubrirá el secreto que aqui se esconde...",
+    shortDescription: "?????",
+    category: "collares", // Categoría temporal para que aparezca
+    materials: ["hecho-a-mano"],
+    images: ["/images/how-to-wrap-present-mc-221206-93309c.webp"],
+    tags: ["especial", "regalo", "misterio"],
+    details: "Una experiencia única | Solo para los más curiosos",
+    care: "La curiosidad es tu mejor herramienta.",
+    stock: 1,
+    isSpecial: true,
+    specialEdition: "Experiencia Única",
   },
 ];
 
@@ -59,11 +74,11 @@ export const getProductsByCategory = (category: Product["category"]): Product[] 
 };
 
 export const getSpecialProduct = (): Product | undefined => {
-  return products.find((p) => p.isSpecial);
+  return products.find((p) => p.isSpecial && p.slug !== "experiencia-misteriosa");
 };
 
 export const getFeaturedProducts = (): Product[] => {
-  return products;
+  return products.filter(p => p.slug !== "experiencia-misteriosa");
 };
 
 export const searchProducts = (query: string): Product[] => {

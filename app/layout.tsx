@@ -16,8 +16,12 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  title: "PERA Y LIMÓN | Accesorios con Identidad",
+  title: "PERA Y LIMÓN",
   description: "Accesorios que susurran historias. Piezas artesanales que abrazan tu esencia y celebran lo irrepetible que hay en ti.",
+  icons: {
+    icon: "/images/ChatGPT Image Jan 4, 2026, 02_59_51 PM.png",
+    apple: "/images/ChatGPT Image Jan 4, 2026, 02_59_51 PM.png",
+  },
 };
 
 export default function RootLayout({

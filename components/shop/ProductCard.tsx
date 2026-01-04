@@ -56,7 +56,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.shortDescription}
           </p>
           <p className="font-sans text-sm text-foreground">
-            {product.price} €
+            {product.slug === "experiencia-misteriosa" ? "????" : `${product.price} €`}
           </p>
         </div>
       </Link>

@@ -9,7 +9,7 @@ export interface Product {
   materials: ("plata-925" | "oro-vermeil" | "hecho-a-mano")[];
   sizes?: string[];
   images: string[];
-  tags: ("nuevo" | "bestseller" | "regalo" | "especial")[];
+  tags: ("nuevo" | "bestseller" | "regalo" | "especial" | "misterio")[];
   details: string;
   care: string;
   isSpecial?: boolean;

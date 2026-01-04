@@ -66,13 +66,13 @@ export default function StoryPage() {
             className="bg-pear/10 p-12 md:p-20 text-center space-y-8"
           >
             <h2 className="font-serif text-4xl text-foreground italic">
-              "Menos es más, pero con alma."
+              "Cada pieza lleva tu historia."
             </h2>
             <div className="w-16 h-px bg-border mx-auto" />
             <p className="font-sans text-muted max-w-2xl mx-auto">
-              Creemos en el lujo silencioso. En piezas que no gritan para llamar
-              la atención, sino que esperan a ser descubiertas por alguien que
-              valora los detalles y la honestidad de los materiales.
+              No creamos accesorios, creamos piezas únicas que abrazan tu esencia 
+              y celebran lo irrepetible que hay en ti. Porque ser diferente 
+              no es una elección, es tu naturaleza.
             </p>
           </motion.div>
 

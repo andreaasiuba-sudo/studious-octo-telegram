@@ -10,20 +10,39 @@ export default function PortalPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  const [showCountdown, setShowCountdown] = useState(true);
+  const [countdown, setCountdown] = useState(10);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [showStartButton, setShowStartButton] = useState(true);
   const router = useRouter();
-  const setAccess = useAccessStore((state) => state.setAccess);
+  const { hasAccess, setAccess } = useAccessStore((state) => ({ 
+    hasAccess: state.hasAccess, 
+    setAccess: state.setAccess 
+  }));
+
+  // Si ya tiene acceso, mostrar directamente el contenido del portal
+  useEffect(() => {
+    if (hasAccess) {
+      setShowStartButton(false);
+      setShowCountdown(false);
+      setShowContent(true);
+    }
+  }, [hasAccess]);
+
+  const startCountdown = () => {
+    setShowStartButton(false);
+    setShowCountdown(true);
+    setCountdown(10);
+  };
 
   useEffect(() => {
-    if (countdown > 0) {
+    if (showCountdown && countdown > 0) {
       const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
       return () => clearTimeout(timer);
-    } else {
+    } else if (showCountdown && countdown === 0) {
       setShowCountdown(false);
       setTimeout(() => setShowContent(true), 500);
     }
-  }, [countdown]);
+  }, [countdown, showCountdown]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +93,7 @@ export default function PortalPage() {
         </div>
 
         <AnimatePresence mode="wait">
-          {showCountdown && (
+          {showStartButton && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -82,24 +101,66 @@ export default function PortalPage() {
               transition={{ duration: 0.5 }}
               className="relative z-10 text-center"
             >
-              <motion.div
-                key={countdown}
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="font-serif text-8xl md:text-9xl text-foreground mb-4"
+                transition={{ delay: 0.2 }}
+                className="font-serif text-3xl md:text-4xl text-foreground mb-8 tracking-tight"
               >
-                {countdown}
-              </motion.div>
-              <motion.p
+                Regalo de Navidad 2026
+              </motion.h2>
+              
+              <motion.button
+                onClick={startCountdown}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-foreground text-background font-sans text-sm tracking-wider hover:bg-foreground/90 transition-colors"
+              >
+                Empezar
+              </motion.button>
+            </motion.div>
+          )}
+
+          {showCountdown && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              transition={{ duration: 0.5 }}
+              className="relative z-10 text-center space-y-8"
+            >
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="font-sans text-sm tracking-[0.3em] text-muted uppercase"
+                transition={{ delay: 0.3 }}
+                className="font-sans text-sm tracking-[0.3em] text-muted uppercase flex items-center justify-center gap-1"
               >
-                Preparando experiencia
-              </motion.p>
+                <span>Preparando regalo para Andrea</span>
+                <motion.span
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  ...
+                </motion.span>
+              </motion.div>
+              
+              {/* Barra de progreso minimalista */}
+              <div className="w-80 mx-auto">
+                <div className="h-px bg-border/20 relative overflow-hidden">
+                  <motion.div
+                    className="absolute left-0 top-0 h-full bg-foreground/60"
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ 
+                      duration: 10, 
+                      ease: "linear" 
+                    }}
+                  />
+                </div>
+              </div>
             </motion.div>
           )}
 
@@ -116,12 +177,12 @@ export default function PortalPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-12 space-y-4"
+              className="mb-8 space-y-3"
             >
-              <h1 className="font-serif text-4xl md:text-5xl text-foreground tracking-tight leading-tight">
+              <h1 className="font-serif text-2xl md:text-3xl text-foreground tracking-tight leading-relaxed">
                 Esto no es<br />solo un regalo.
               </h1>
-              <p className="font-serif text-xl text-muted italic">
+              <p className="font-serif text-base text-muted italic">
                 Esto no es solo para ti.
               </p>
             </motion.div>
@@ -131,15 +192,15 @@ export default function PortalPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               onSubmit={handleSubmit}
-              className="space-y-6"
+              className="space-y-4"
             >
               <div className="relative">
                 <input
                   type="password"
                   value={key}
                   onChange={(e) => setKey(e.target.value)}
-                  placeholder="Clave: ¿Qué postre te apetece?"
-                  className="w-full px-6 py-4 bg-transparent border-b border-border text-center font-sans text-lg placeholder:text-muted/50 focus:outline-none focus:border-foreground transition-colors duration-300"
+                  placeholder="Clave: ¿Cuál es nuestro postre favorito?"
+                  className="w-full px-4 py-3 bg-transparent border-b border-border text-center font-sans text-sm placeholder:text-muted/50 focus:outline-none focus:border-foreground transition-colors duration-300"
                   autoFocus
                 />
               </div>
@@ -162,7 +223,7 @@ export default function PortalPage() {
                 disabled={isLoading || !key}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-foreground text-background font-sans text-sm tracking-wider hover:bg-foreground/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-foreground text-background font-sans text-xs tracking-wider hover:bg-foreground/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <motion.span
@@ -182,7 +243,7 @@ export default function PortalPage() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="mt-16 h-px bg-border w-24 mx-auto"
+              className="mt-12 h-px bg-border w-16 mx-auto"
             />
             </motion.div>
           )}

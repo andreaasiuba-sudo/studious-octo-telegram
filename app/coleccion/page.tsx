@@ -12,11 +12,10 @@ type SortOption = "popular" | "price-asc" | "price-desc" | "newest";
 export default function ShopPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedMaterial, setSelectedMaterial] = useState<string>("");
   const [sortBy, setSortBy] = useState<SortOption>("popular");
 
   const filteredProducts = useMemo(() => {
-    let result = products;
+    let result = products.filter(p => p.slug !== "experiencia-misteriosa");
 
     // Apply search
     if (searchQuery) {
@@ -26,7 +25,7 @@ export default function ShopPage() {
     // Apply filters
     result = filterProducts(
       selectedCategory || undefined,
-      selectedMaterial || undefined
+      undefined
     ).filter((p) => (searchQuery ? result.some((r) => r.id === p.id) : true));
 
     // If search is active, filter the already filtered products
@@ -39,7 +38,7 @@ export default function ShopPage() {
     result = sortProducts(result, sortBy);
 
     return result;
-  }, [searchQuery, selectedCategory, selectedMaterial, sortBy]);
+  }, [searchQuery, selectedCategory, sortBy]);
 
   const categories = [
     { value: "", label: "Todas" },
@@ -49,11 +48,6 @@ export default function ShopPage() {
     { value: "pulseras", label: "Pulseras" },
   ];
 
-  const materials = [
-    { value: "", label: "Todos" },
-    { value: "plata-925", label: "Plata 925" },
-    { value: "oro-vermeil", label: "Oro Vermeil" },
-  ];
 
   const sortOptions = [
     { value: "popular", label: "Popularidad" },
@@ -65,7 +59,6 @@ export default function ShopPage() {
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedCategory("");
-    setSelectedMaterial("");
     setSortBy("popular");
   };
 
@@ -147,24 +140,9 @@ export default function ShopPage() {
                 </select>
               </div>
 
-              {/* Material Filter */}
-              <div className="flex items-center gap-2">
-                <span className="font-sans text-xs text-muted">Material:</span>
-                <select
-                  value={selectedMaterial}
-                  onChange={(e) => setSelectedMaterial(e.target.value)}
-                  className="px-4 py-2 bg-transparent border border-border text-foreground font-sans text-sm focus:outline-none focus:border-foreground transition-colors cursor-pointer"
-                >
-                  {materials.map((mat) => (
-                    <option key={mat.value} value={mat.value}>
-                      {mat.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
 
               {/* Clear Filters */}
-              {(selectedCategory || selectedMaterial || searchQuery) && (
+              {(selectedCategory || searchQuery) && (
                 <button
                   onClick={clearFilters}
                   className="font-sans text-xs text-muted hover:text-foreground transition-colors underline"

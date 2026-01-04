@@ -27,9 +27,9 @@ export default function HomePage() {
               transition={{ duration: 1.5, ease: "easeInOut" }}
               className="absolute inset-0"
             >
-              <div className="absolute inset-0 bg-black/60 z-10" />
+              <div className="absolute inset-0 bg-black/45 z-10" />
               <img
-                src="/images/hero-background-new.jpg"
+                src="/images/image.png"
                 alt="Pera y Limón - Accesorios artesanales"
                 className="w-full h-full object-cover scale-105"
                 style={{ imageRendering: 'auto' }}
@@ -41,7 +41,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
+              transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
             >
                     <h1 className="font-serif text-2xl md:text-4xl lg:text-5xl font-light text-white mb-8 leading-[1.1] drop-shadow-2xl tracking-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0px 0px 16px rgba(0,0,0,0.6)' }}>
                       Pera y Limón:
@@ -53,7 +53,7 @@ export default function HomePage() {
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
                     className="font-sans text-base md:text-lg text-white mb-16 max-w-2xl mx-auto font-light leading-relaxed"
                     style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}
             >
@@ -64,7 +64,7 @@ export default function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
+              transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" }}
             >
               <Link
                 href="/coleccion"
@@ -233,7 +233,7 @@ export default function HomePage() {
                     {/* Image */}
                     <div className="aspect-[4/3] overflow-hidden rounded-sm">
                       <img
-                        src="/images/amsterdam-canal.jpg?v=1"
+                        src="/images/amsterdam-canal.jpg"
                         alt="Canal de Ámsterdam al atardecer"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                       />

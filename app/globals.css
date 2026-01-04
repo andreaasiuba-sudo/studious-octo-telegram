@@ -11,14 +11,12 @@
 
 /* Ensure content is visible even before JS loads */
 body {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
-/* Make sure animated elements are visible */
-[style*="opacity: 0"],
-[style*="opacity:0"] {
-  opacity: 1 !important;
-  transform: none !important;
+/* Make sure content is visible even before JS loads */
+.js-loading body {
+  opacity: 0;
 }
 
 * {
@@ -35,6 +33,7 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
