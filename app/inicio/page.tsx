@@ -8,9 +8,23 @@ import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/shop/ProductCard";
 import { getFeaturedProducts, getSpecialProduct } from "@/lib/products";
 
+const backgroundImages = [
+  "/images/hero-background-v2.png",
+  "/images/hero-background-v3.png",
+  "/images/hero-background-v4.png"
+];
+
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const specialProduct = getSpecialProduct();
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBgIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>
@@ -19,22 +33,26 @@ export default function HomePage() {
       <main className="bg-background">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden">
-          {/* Background Image */}
+          {/* Background Image Carousel */}
           <div className="absolute inset-0 z-0">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <div className="absolute inset-0 bg-black/45 z-10" />
-              <img
-                src="/images/hero-background-main.png"
-                alt="Pera y Limón - Accesorios artesanales"
-                className="w-full h-full object-cover scale-105"
-                style={{ imageRendering: 'auto' }}
-              />
-            </motion.div>
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={currentBgIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <div className="absolute inset-0 bg-black/45 z-10" />
+                <img
+                  src={backgroundImages[currentBgIndex]}
+                  alt="Pera y Limón"
+                  className="w-full h-full object-cover"
+                  style={{ imageRendering: 'auto' }}
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <div className="relative z-20 max-w-4xl text-center">
