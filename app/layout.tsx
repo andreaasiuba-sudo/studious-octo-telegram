@@ -20,8 +20,11 @@ export const metadata: Metadata = {
   title: "PERA Y LIMÓN",
   description: "Accesorios que susurran historias. Piezas artesanales que abrazan tu esencia y celebran lo irrepetible que hay en ti.",
   icons: {
-    icon: "/images/ChatGPT Image Jan 4, 2026, 03_51_47 PM.png",
-    apple: "/images/ChatGPT Image Jan 4, 2026, 03_51_47 PM.png",
+    icon: [
+      { url: "/favicon.png" },
+      { url: "/images/ChatGPT Image Jan 4, 2026, 03_51_47 PM.png" }
+    ],
+    apple: "/apple-icon.png",
   },
 };
 
