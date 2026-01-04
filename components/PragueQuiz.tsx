@@ -22,7 +22,7 @@ const questions: Question[] = [
   {
     id: 2,
     question: "¿Cuál es el dulce tradicional que se cocina al fuego en las calles?",
-    options: ["Trdelník", "Baklava", "Gofre", "Churro"],
+    options: ["Trdelník", "Macaron francés", "Ćevapi", "Goulash"],
     correctAnswer: 0,
     hint: "Tiene forma de cilindro y suele estar cubierto de azúcar y canela..."
   },
@@ -256,9 +256,6 @@ export default function PragueQuiz({ onComplete }: PragueQuizProps) {
                 </motion.span>
               ))}
             </div>
-            <p className="font-serif text-xl text-foreground italic">
-              🎒 ¡Haciendo las maletas! 🎒
-            </p>
           </motion.div>
 
         </div>
