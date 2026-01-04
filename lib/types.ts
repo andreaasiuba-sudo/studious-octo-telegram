@@ -6,10 +6,10 @@ export interface Product {
   description: string;
   shortDescription: string;
   category: "anillos" | "collares" | "pendientes" | "pulseras" | "gift-card";
-  materials: ("plata-925" | "oro-vermeil" | "gift-card")[];
+  materials: ("plata-925" | "oro-vermeil" | "gift-card" | "hecho-a-mano")[];
   sizes?: string[];
   images: string[];
-  tags: ("nuevo" | "bestseller" | "regalo" | "especial")[];
+  tags: ("nuevo" | "bestseller" | "regalo" | "especial" | "misterio")[];
   details: string;
   care: string;
   isSpecial?: boolean;
