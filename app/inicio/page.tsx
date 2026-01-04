@@ -211,7 +211,7 @@ export default function HomePage() {
                   description: "Si no te convence, te devolvemos el dinero.",
                 },
                 {
-                  title: "Empaque para regalo",
+                  title: "Envoltorio para regalo",
                   description: "Cada pieza viene lista para regalar.",
                 },
               ].map((benefit, index) => (
