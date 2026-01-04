@@ -17,14 +17,12 @@ export default function PortalPage() {
   const hasAccess = useAccessStore((state) => state.hasAccess);
   const setAccess = useAccessStore((state) => state.setAccess);
 
-  // Si ya tiene acceso, mostrar directamente el contenido del portal
+  // Si ya tiene acceso, ir directamente a la carta
   useEffect(() => {
     if (hasAccess) {
-      setShowStartButton(false);
-      setShowCountdown(false);
-      setShowContent(true);
+      router.push("/carta");
     }
-  }, [hasAccess]);
+  }, [hasAccess, router]);
 
   const startCountdown = () => {
     setShowStartButton(false);
