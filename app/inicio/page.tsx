@@ -29,7 +29,7 @@ export default function HomePage() {
             >
               <div className="absolute inset-0 bg-black/45 z-10" />
               <img
-                src="/images/image.png"
+                src="/images/hero-background-main.png"
                 alt="Pera y Limón - Accesorios artesanales"
                 className="w-full h-full object-cover scale-105"
                 style={{ imageRendering: 'auto' }}
