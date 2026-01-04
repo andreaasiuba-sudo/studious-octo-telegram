@@ -83,33 +83,6 @@ export default function PortalPage() {
         )}
       </AnimatePresence>
 
-      {/* Snowfall Effect - Ultra Mega Intensified */}
-      <div className="fixed inset-0 pointer-events-none z-50">
-        {[...Array(550)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute bg-white rounded-full"
-            style={{
-              width: Math.random() * 4.5 + 0.5 + "px",
-              height: Math.random() * 4.5 + 0.5 + "px",
-              left: Math.random() * 100 + "%",
-              top: "-10px",
-              opacity: Math.random() * 0.85 + 0.1,
-              filter: Math.random() > 0.6 ? `blur(${Math.random() * 2.5}px)` : "none",
-            }}
-            animate={{
-              y: ["0vh", "110vh"],
-              x: ["0px", (Math.random() - 0.5) * 200 + "px"],
-            }}
-            transition={{
-              duration: Math.random() * 18 + 4,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 25,
-            }}
-          />
-        ))}
-      </div>
 
       {/* Camouflaged Header */}
       <div className={`w-full py-4 px-6 flex items-center justify-between opacity-20 hover:opacity-100 transition-opacity duration-500 z-20 ${showStartButton ? 'text-white' : 'text-foreground'}`}>
@@ -147,15 +120,6 @@ export default function PortalPage() {
               className="relative z-10 flex flex-col items-center gap-12"
             >
               <div className="relative flex flex-col items-center">
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="mb-6 text-4xl opacity-60"
-                >
-                  ❄️
-                </motion.div>
-                
                 <div className="relative">
                   <div className="absolute inset-0 bg-[#3D3D33]/70 blur-2xl -inset-y-6 -inset-x-12 rounded-full" />
                   <h2 className="relative font-serif text-5xl md:text-8xl text-white tracking-tighter leading-none text-center px-4">

@@ -10,8 +10,13 @@ import { useCartStore } from "@/lib/cart-store";
 
 export default function CartPage() {
   const [mounted, setMounted] = useState(false);
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
   const router = useRouter();
   const { items, getTotal, clearCart } = useCartStore();
+
+  const DISCOUNT_CODE = "10PERAYLIMON";
+  const DISCOUNT_PERCENTAGE = 10;
 
   useEffect(() => {
     setMounted(true);
@@ -29,8 +34,18 @@ export default function CartPage() {
     );
   }
 
-  const total = getTotal();
+  const subtotal = getTotal();
+  const discount = discountApplied ? subtotal * (DISCOUNT_PERCENTAGE / 100) : 0;
+  const total = subtotal - discount;
   const isEmpty = items.length === 0;
+
+  const handleApplyDiscount = () => {
+    if (discountCode.toUpperCase() === DISCOUNT_CODE) {
+      setDiscountApplied(true);
+    } else {
+      alert("Código de descuento inválido");
+    }
+  };
 
   return (
     <>
@@ -84,7 +99,7 @@ export default function CartPage() {
                 Explora nuestra colección y encuentra algo especial.
               </p>
               <motion.button
-                onClick={() => router.push("/shop")}
+                onClick={() => router.push("/coleccion")}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="px-8 py-3 bg-foreground text-background font-sans text-sm tracking-wider hover:bg-foreground/90 transition-colors"
@@ -128,11 +143,56 @@ export default function CartPage() {
                     Resumen
                   </h3>
 
+                  {/* Discount Code */}
+                  {!discountApplied && (
+                    <div className="mb-6 pb-6 border-b border-border">
+                      <h4 className="font-sans text-sm text-foreground mb-3">
+                        Código de descuento
+                      </h4>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={discountCode}
+                          onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                          placeholder="Código"
+                          className="flex-1 px-4 py-2 border border-border text-foreground font-sans text-sm focus:outline-none focus:border-foreground transition-colors"
+                        />
+                        <motion.button
+                          onClick={handleApplyDiscount}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-4 py-2 border border-foreground text-foreground font-sans text-sm tracking-wider hover:bg-foreground hover:text-background transition-colors"
+                        >
+                          Aplicar
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+
+                  {discountApplied && (
+                    <div className="mb-6 pb-6 border-b border-border">
+                      <div className="flex items-center justify-between">
+                        <span className="font-sans text-sm text-green-600">
+                          Descuento aplicado ({DISCOUNT_PERCENTAGE}%)
+                        </span>
+                        <span className="font-sans text-sm text-green-600">
+                          -{discount.toFixed(2)} €
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between font-sans text-sm">
                       <span className="text-muted">Subtotal</span>
-                      <span className="text-foreground">{total} €</span>
+                      <span className="text-foreground">{subtotal.toFixed(2)} €</span>
                     </div>
+                    {discountApplied && (
+                      <div className="flex justify-between font-sans text-sm">
+                        <span className="text-muted">Descuento</span>
+                        <span className="text-green-600">-{discount.toFixed(2)} €</span>
+                      </div>
+                    )}
                     <div className="flex justify-between font-sans text-sm">
                       <span className="text-muted">Envío</span>
                       <span className="text-foreground">Gratis</span>
@@ -143,7 +203,7 @@ export default function CartPage() {
                     <div className="flex justify-between font-sans">
                       <span className="text-foreground font-medium">Total</span>
                       <span className="text-foreground font-medium text-xl">
-                        {total} €
+                        {total.toFixed(2)} €
                       </span>
                     </div>
                   </div>

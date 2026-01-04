@@ -18,6 +18,7 @@ export default function ProductPage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [added, setAdded] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -83,7 +84,7 @@ export default function ProductPage() {
     setIsAdding(true);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    addItem(product, "hecho-a-mano", selectedSize || undefined);
+    addItem(product, "hecho-a-mano", selectedSize || undefined, quantity);
 
     setIsAdding(false);
     setAdded(true);
@@ -248,6 +249,39 @@ export default function ProductPage() {
                         {size}
                       </button>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Quantity Selector */}
+              {product.slug !== "experiencia-misteriosa" && (
+                <div>
+                  <h4 className="font-sans text-sm text-foreground mb-3">
+                    Cantidad
+                  </h4>
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                      className="w-10 h-10 border border-border hover:border-foreground transition-colors flex items-center justify-center"
+                      aria-label="Reducir cantidad"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                    </button>
+                    <span className="font-sans text-lg text-foreground min-w-[3rem] text-center">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                      className="w-10 h-10 border border-border hover:border-foreground transition-colors flex items-center justify-center"
+                      aria-label="Aumentar cantidad"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               )}

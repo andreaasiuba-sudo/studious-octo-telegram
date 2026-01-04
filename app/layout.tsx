@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import DiscountPopup from "@/components/DiscountPopup";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,6 +40,7 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
+        <DiscountPopup />
         <Analytics />
       </body>
     </html>

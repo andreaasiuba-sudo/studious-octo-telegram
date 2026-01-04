@@ -74,20 +74,27 @@ export default function PragueQuiz({ onComplete }: PragueQuizProps) {
 
     if (correct) {
       setCorrectAnswers(prev => prev + 1);
-    }
-
-    setTimeout(() => {
-      if (currentQuestion < questions.length - 1) {
-        setCurrentQuestion(prev => prev + 1);
+      // Solo avanzar si la respuesta es correcta
+      setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(prev => prev + 1);
+          setSelectedAnswer(null);
+          setShowResult(false);
+          setShowHint(false);
+        } else {
+          // Quiz completado - incrementar para mostrar la celebración
+          setCurrentQuestion(prev => prev + 1);
+          // Eliminado el onComplete automático para que la celebración se quede
+        }
+      }, 2000);
+    } else {
+      // Si es incorrecta, permitir seguir intentando después de mostrar el error
+      setTimeout(() => {
         setSelectedAnswer(null);
         setShowResult(false);
-        setShowHint(false);
-      } else {
-        // Quiz completado - incrementar para mostrar la celebración
-        setCurrentQuestion(prev => prev + 1);
-        // Eliminado el onComplete automático para que la celebración se quede
-      }
-    }, 2000);
+        // No avanzamos a la siguiente pregunta, se queda en la misma
+      }, 2000);
+    }
   };
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;

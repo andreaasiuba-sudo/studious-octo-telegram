@@ -5,11 +5,11 @@ export interface Product {
   price: number;
   description: string;
   shortDescription: string;
-  category: "anillos" | "collares" | "pendientes" | "pulseras";
-  materials: ("plata-925" | "oro-vermeil" | "hecho-a-mano")[];
+  category: "anillos" | "collares" | "pendientes" | "pulseras" | "gift-card";
+  materials: ("plata-925" | "oro-vermeil" | "gift-card")[];
   sizes?: string[];
   images: string[];
-  tags: ("nuevo" | "bestseller" | "regalo" | "especial" | "misterio")[];
+  tags: ("nuevo" | "bestseller" | "regalo" | "especial")[];
   details: string;
   care: string;
   isSpecial?: boolean;

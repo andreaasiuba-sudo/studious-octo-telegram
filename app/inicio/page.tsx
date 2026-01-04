@@ -55,29 +55,32 @@ export default function HomePage() {
             </AnimatePresence>
           </div>
 
-          <div className="relative z-20 max-w-4xl text-center">
+          <div className="relative z-20 max-w-4xl text-center px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="space-y-6 mb-12"
             >
-                    <h1 className="font-serif text-2xl md:text-4xl lg:text-5xl font-light text-white mb-8 leading-[1.1] drop-shadow-2xl tracking-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0px 0px 16px rgba(0,0,0,0.6)' }}>
-                      Pera y Limón:
-                      <br />
-                      Piezas únicas con alma de Ámsterdam.
-                    </h1>
+              <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light text-white leading-[1.1] drop-shadow-2xl tracking-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0px 0px 16px rgba(0,0,0,0.6)' }}>
+                PERA Y LIMÓN
+              </h1>
+              
+              <p className="font-serif text-lg md:text-xl lg:text-2xl font-light text-white/80 leading-relaxed drop-shadow-lg max-w-xl mx-auto" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.6), 0px 0px 8px rgba(0,0,0,0.4)' }}>
+                Piezas únicas con alma de Ámsterdam.
+              </p>
             </motion.div>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-                    className="font-sans text-base md:text-lg text-white mb-16 max-w-2xl mx-auto font-light leading-relaxed"
-                    style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}
+              className="mb-16"
             >
-              Accesorios artesanales creados para quienes buscan 
-              proyectar una identidad propia e irrepetible.
-            </motion.p>
+              <p className="font-sans text-sm md:text-base text-white/90 max-w-xl mx-auto font-light leading-relaxed" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}>
+                Accesorios artesanales creados para quienes buscan proyectar una identidad propia e irrepetible.
+              </p>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -86,8 +89,8 @@ export default function HomePage() {
             >
               <Link
                 href="/coleccion"
-                      className="inline-block px-16 py-5 bg-white/95 text-foreground font-sans text-xs tracking-[0.3em] uppercase hover:bg-white transition-all shadow-2xl backdrop-blur-sm border border-white/20"
-                      style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)' }}
+                className="inline-block px-16 py-5 bg-white/95 text-foreground font-sans text-xs tracking-[0.3em] uppercase hover:bg-white transition-all shadow-2xl backdrop-blur-sm border border-white/20"
+                style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)' }}
               >
                 Descubrir Colección
               </Link>
@@ -267,7 +270,7 @@ export default function HomePage() {
                           Cada pieza de Pera y Limón es un tributo a la paciencia y el detalle. Todas nuestras piezas se montan cuidadosamente a mano y se envían directamente desde nuestro taller en Ámsterdam, Países Bajos.
                         </p>
                         <p>
-                          Trabajamos con metales nobles, asegurando que cada pieza que sale de nuestras manos sea digna de llevar el nombre de Andrea y la identidad de quien la elige.
+                          Trabajamos con todo tipo de materiales, asegurando que cada pieza que sale de nuestras manos sea digna de llevar, todo con la identidad de quien la elige.
                         </p>
                       </div>
                       <div className="pt-4">

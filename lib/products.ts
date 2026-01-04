@@ -19,7 +19,7 @@ export const products: Product[] = [
   {
     id: "2",
     slug: "azulejo-lisboa-soul",
-    name: "Azulejo Lisboa Soul",
+    name: "Azulejo Lisboa Reflection",
     price: 12.95,
     description: "Tradición portuguesa en un formato contemporáneo. Este azulejo azul y blanco es una pieza decorativa que simboliza la artesanía y el detalle que define a Pera y Limón.",
     shortDescription: "Tradición portuguesa, alma moderna",

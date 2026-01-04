@@ -17,7 +17,7 @@ export default function StoryPage() {
             className="text-center mb-20"
           >
             <span className="font-sans text-xs tracking-[0.3em] text-muted uppercase mb-4 block">
-              Desde 2024
+              Desde 2025
             </span>
             <h1 className="font-serif text-5xl md:text-6xl text-foreground">
               Nuestra Historia
@@ -93,9 +93,7 @@ export default function StoryPage() {
                 directamente desde nuestro taller en Ámsterdam, Países Bajos.
               </p>
               <p className="font-sans text-muted leading-relaxed">
-                Trabajamos con metales nobles, asegurando que cada pieza que sale
-                de nuestras manos sea digna de llevar el nombre de Andrea y la
-                identidad de quien la elige.
+                Trabajamos con todo tipo de materiales, asegurando que cada pieza que sale de nuestras manos sea digna de llevar, todo con la identidad de quien la elige.
               </p>
             </motion.div>
             

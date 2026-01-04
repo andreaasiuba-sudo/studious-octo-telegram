@@ -22,6 +22,7 @@ export default function Header() {
   const links = [
     { href: "/inicio", label: "Inicio" },
     { href: "/coleccion", label: "Colección" },
+    { href: "/gift-card", label: "Gift Card" },
     { href: "/nuestra-historia", label: "Nuestra Historia" },
     { href: "/contacto", label: "Contacto" },
   ];

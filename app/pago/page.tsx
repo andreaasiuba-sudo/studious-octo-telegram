@@ -28,8 +28,13 @@ export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
   const router = useRouter();
   const { items, getTotal, clearCart } = useCartStore();
+
+  const DISCOUNT_CODE = "10PERAYLIMON";
+  const DISCOUNT_PERCENTAGE = 10;
 
   const {
     register,
@@ -75,9 +80,19 @@ export default function CheckoutPage() {
     );
   }
 
-  const total = getTotal();
+  const subtotal = getTotal();
+  const discount = discountApplied ? subtotal * (DISCOUNT_PERCENTAGE / 100) : 0;
+  const total = subtotal - discount;
   const shippingCost = envio === "express" ? 9.95 : 0;
   const finalTotal = total + shippingCost;
+
+  const handleApplyDiscount = () => {
+    if (discountCode.toUpperCase() === DISCOUNT_CODE) {
+      setDiscountApplied(true);
+    } else {
+      alert("Código de descuento inválido");
+    }
+  };
 
   if (items.length === 0 && !isComplete) {
     router.push("/cart");
@@ -417,16 +432,62 @@ export default function CheckoutPage() {
                           ))}
                         </div>
 
+                        {/* Discount Code */}
+                        {!discountApplied && (
+                          <div className="mb-6 pb-6 border-b border-border">
+                            <h4 className="font-sans text-sm text-foreground mb-3">
+                              Código de descuento
+                            </h4>
+                            <div className="flex gap-2">
+                              <input
+                                type="text"
+                                value={discountCode}
+                                onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                                placeholder="Código"
+                                className="flex-1 px-4 py-2 border border-border text-foreground font-sans text-sm focus:outline-none focus:border-foreground transition-colors"
+                              />
+                              <motion.button
+                                type="button"
+                                onClick={handleApplyDiscount}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-4 py-2 border border-foreground text-foreground font-sans text-sm tracking-wider hover:bg-foreground hover:text-background transition-colors"
+                              >
+                                Aplicar
+                              </motion.button>
+                            </div>
+                          </div>
+                        )}
+
+                        {discountApplied && (
+                          <div className="mb-6 pb-6 border-b border-border">
+                            <div className="flex items-center justify-between">
+                              <span className="font-sans text-sm text-green-600">
+                                Descuento aplicado ({DISCOUNT_PERCENTAGE}%)
+                              </span>
+                              <span className="font-sans text-sm text-green-600">
+                                -{discount.toFixed(2)} €
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
                         {/* Totals */}
                         <div className="space-y-3 border-t border-border pt-4 mb-6">
                           <div className="flex justify-between font-sans text-sm">
                             <span className="text-muted">Subtotal</span>
-                            <span className="text-foreground">{total} €</span>
+                            <span className="text-foreground">{subtotal.toFixed(2)} €</span>
                           </div>
+                          {discountApplied && (
+                            <div className="flex justify-between font-sans text-sm">
+                              <span className="text-muted">Descuento</span>
+                              <span className="text-green-600">-{discount.toFixed(2)} €</span>
+                            </div>
+                          )}
                           <div className="flex justify-between font-sans text-sm">
                             <span className="text-muted">Envío</span>
                             <span className="text-foreground">
-                              {shippingCost === 0 ? "Gratis" : `${shippingCost} €`}
+                              {shippingCost === 0 ? "Gratis" : `${shippingCost.toFixed(2)} €`}
                             </span>
                           </div>
                         </div>
