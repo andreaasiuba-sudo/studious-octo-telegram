@@ -14,10 +14,8 @@ export default function PortalPage() {
   const [showCountdown, setShowCountdown] = useState(false);
   const [showStartButton, setShowStartButton] = useState(true);
   const router = useRouter();
-  const { hasAccess, setAccess } = useAccessStore((state) => ({ 
-    hasAccess: state.hasAccess, 
-    setAccess: state.setAccess 
-  }));
+  const hasAccess = useAccessStore((state) => state.hasAccess);
+  const setAccess = useAccessStore((state) => state.setAccess);
 
   // Si ya tiene acceso, mostrar directamente el contenido del portal
   useEffect(() => {
