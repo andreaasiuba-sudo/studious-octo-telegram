@@ -34,7 +34,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             )}
             {product.tags.includes("bestseller") && (
               <span className="px-2 py-1 bg-background text-foreground border border-foreground text-[10px] font-sans tracking-wider">
-                BESTSELLER
+                MÁS VENDIDO
               </span>
             )}
             {product.isSpecial && (
