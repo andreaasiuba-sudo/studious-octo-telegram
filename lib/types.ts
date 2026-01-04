@@ -6,7 +6,7 @@ export interface Product {
   description: string;
   shortDescription: string;
   category: "anillos" | "collares" | "pendientes" | "pulseras";
-  materials: ("plata-925" | "oro-vermeil")[];
+  materials: ("plata-925" | "oro-vermeil" | "hecho-a-mano")[];
   sizes?: string[];
   images: string[];
   tags: ("nuevo" | "bestseller" | "regalo" | "especial")[];
