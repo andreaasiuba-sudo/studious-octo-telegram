@@ -53,7 +53,7 @@ export default function Footer() {
                 Contacto
               </Link>
               <Link
-                href="/cart"
+                href="/carrito"
                 className="font-sans text-sm text-muted hover:text-foreground transition-colors"
               >
                 Carrito
