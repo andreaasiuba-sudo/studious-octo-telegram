@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({
@@ -35,6 +36,7 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
