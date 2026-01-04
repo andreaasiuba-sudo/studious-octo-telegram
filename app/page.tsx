@@ -5,12 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAccessStore, validateKey } from "@/lib/access-store";
 
-const backgroundImages = [
-  "/images/portal-background.png",
-  "/images/hero-background-v3.png",
-  "/images/hero-background-v4.png"
-];
-
 export default function PortalPage() {
   const [key, setKey] = useState("");
   const [error, setError] = useState("");
@@ -19,18 +13,9 @@ export default function PortalPage() {
   const [countdown, setCountdown] = useState(10);
   const [showCountdown, setShowCountdown] = useState(false);
   const [showStartButton, setShowStartButton] = useState(true);
-  const [currentBgIndex, setCurrentBgIndex] = useState(0);
   const router = useRouter();
   const hasAccess = useAccessStore((state) => state.hasAccess);
   const setAccess = useAccessStore((state) => state.setAccess);
-
-  // Carousel timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentBgIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Eliminada la redirección automática para que siempre empiece desde el principio
   useEffect(() => {
@@ -79,19 +64,18 @@ export default function PortalPage() {
   return (
     <main className="min-h-screen bg-background flex flex-col relative overflow-hidden">
       {/* Background Image with Overlay - ONLY visible before clicking Start */}
-      <AnimatePresence initial={false}>
+      <AnimatePresence>
         {showStartButton && (
           <motion.div
-            key={currentBgIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             className="absolute inset-0 z-0"
           >
             <div className="absolute inset-0 bg-black/40 z-10" />
             <img
-              src={backgroundImages[currentBgIndex]}
+              src="/images/portal-background.png"
               alt="Background"
               className="w-full h-full object-cover scale-105"
             />
