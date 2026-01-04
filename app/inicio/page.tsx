@@ -32,7 +32,7 @@ export default function HomePage() {
                 src="/images/hero-background-new.jpg"
                 alt="Pera y Limón - Accesorios artesanales"
                 className="w-full h-full object-cover scale-105"
-                style={{ imageRendering: 'high-quality' }}
+                style={{ imageRendering: 'auto' }}
               />
             </motion.div>
           </div>
