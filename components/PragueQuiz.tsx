@@ -130,13 +130,6 @@ export default function PragueQuiz({ onComplete }: PragueQuizProps) {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <motion.span 
-              className="font-sans text-[10px] tracking-[0.4em] text-accent uppercase mb-2 block"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              Destino Revelado
-            </motion.span>
             <h1 className="font-serif text-6xl md:text-8xl text-foreground mb-2 tracking-tighter leading-none">
               ¡PRAGA!
             </h1>
