@@ -29,16 +29,16 @@ export default function Footer() {
             </h4>
             <nav className="flex flex-col gap-2">
               <Link
-                href="/inicio"
-                className="font-sans text-sm text-muted hover:text-foreground transition-colors"
-              >
-                Inicio
-              </Link>
-              <Link
                 href="/coleccion"
                 className="font-sans text-sm text-muted hover:text-foreground transition-colors"
               >
                 Colección
+              </Link>
+              <Link
+                href="/gift-card"
+                className="font-sans text-sm text-muted hover:text-foreground transition-colors"
+              >
+                Gift Card
               </Link>
               <Link
                 href="/nuestra-historia"
@@ -57,12 +57,6 @@ export default function Footer() {
                 className="font-sans text-sm text-muted hover:text-foreground transition-colors"
               >
                 Carrito
-              </Link>
-              <Link
-                href="/gift-card"
-                className="font-sans text-sm text-muted hover:text-foreground transition-colors"
-              >
-                Gift Card
               </Link>
             </nav>
           </div>
