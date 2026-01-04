@@ -15,10 +15,10 @@ export default function DiscountPopup() {
     // Verificar si el usuario ya ha visto el popup
     const seen = localStorage.getItem("discount-popup-seen");
     if (!seen) {
-      // Mostrar el popup después de 3 segundos
+      // Mostrar el popup después de 10 segundos
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 3000);
+      }, 10000);
       return () => clearTimeout(timer);
     } else {
       setHasSeenPopup(true);
