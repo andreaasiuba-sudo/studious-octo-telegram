@@ -62,7 +62,33 @@ export default function PortalPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background flex flex-col">
+    <main className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+      {/* Snowfall Effect */}
+      <div className="fixed inset-0 pointer-events-none z-50">
+        {[...Array(25)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-white rounded-full opacity-60"
+            style={{
+              width: Math.random() * 4 + 2 + "px",
+              height: Math.random() * 4 + 2 + "px",
+              left: Math.random() * 100 + "%",
+              top: "-10px",
+            }}
+            animate={{
+              y: ["0vh", "110vh"],
+              x: ["0px", (Math.random() - 0.5) * 50 + "px"],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 10,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Camouflaged Header */}
       <div className="w-full py-4 px-6 flex items-center justify-between opacity-20 hover:opacity-100 transition-opacity duration-500">
         <div className="font-serif text-xl tracking-wider text-foreground">
@@ -98,6 +124,14 @@ export default function PortalPage() {
               transition={{ duration: 0.5 }}
               className="relative z-10 text-center"
             >
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mb-4 text-3xl opacity-40"
+              >
+                ❄️
+              </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -112,9 +146,13 @@ export default function PortalPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: "#3D3D33",
+                  color: "#FFF9F5"
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-foreground text-background font-sans text-sm tracking-wider hover:bg-foreground/90 transition-colors"
+                className="px-8 py-3 border border-foreground/20 text-foreground font-sans text-sm tracking-wider transition-all"
               >
                 Empezar
               </motion.button>
