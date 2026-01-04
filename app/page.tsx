@@ -63,6 +63,16 @@ export default function PortalPage() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-black/40 z-10" />
+        <img
+          src="/images/portal-background.png"
+          alt="Background"
+          className="w-full h-full object-cover scale-105"
+        />
+      </div>
+
       {/* Snowfall Effect */}
       <div className="fixed inset-0 pointer-events-none z-50">
         {[...Array(25)].map((_, i) => (
@@ -136,7 +146,7 @@ export default function PortalPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="font-serif text-3xl md:text-4xl text-foreground mb-8 tracking-tight"
+                className="font-serif text-3xl md:text-4xl text-white mb-8 tracking-tight drop-shadow-lg"
               >
                 Regalo de Navidad 2026
               </motion.h2>
@@ -148,11 +158,11 @@ export default function PortalPage() {
                 transition={{ delay: 0.4 }}
                 whileHover={{ 
                   scale: 1.05,
-                  backgroundColor: "#3D3D33",
-                  color: "#FFF9F5"
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
+                  color: "#111"
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-foreground/20 text-foreground font-sans text-sm tracking-wider transition-all"
+                className="px-8 py-3 border border-white/40 text-white font-sans text-sm tracking-wider transition-all"
               >
                 Empezar
               </motion.button>
@@ -171,7 +181,7 @@ export default function PortalPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="font-sans text-sm tracking-[0.3em] text-muted uppercase flex items-center justify-center gap-1"
+                className="font-sans text-sm tracking-[0.3em] text-white/80 uppercase flex items-center justify-center gap-1"
               >
                 <span>Preparando regalo para Andrea</span>
                 <motion.span
@@ -184,9 +194,9 @@ export default function PortalPage() {
               
               {/* Barra de progreso minimalista */}
               <div className="w-80 mx-auto">
-                <div className="h-px bg-border/20 relative overflow-hidden">
+                <div className="h-px bg-white/20 relative overflow-hidden">
                   <motion.div
-                    className="absolute left-0 top-0 h-full bg-foreground/60"
+                    className="absolute left-0 top-0 h-full bg-white/80"
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
                     transition={{ 
@@ -214,10 +224,10 @@ export default function PortalPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mb-8 space-y-3"
             >
-              <h1 className="font-serif text-2xl md:text-3xl text-foreground tracking-tight leading-relaxed">
+              <h1 className="font-serif text-2xl md:text-3xl text-white tracking-tight leading-relaxed drop-shadow-md">
                 Esto no es<br />solo un regalo.
               </h1>
-              <p className="font-serif text-base text-muted italic">
+              <p className="font-serif text-base text-white/80 italic drop-shadow-md">
                 Esto no es solo para ti.
               </p>
             </motion.div>
@@ -235,7 +245,7 @@ export default function PortalPage() {
                   value={key}
                   onChange={(e) => setKey(e.target.value)}
                   placeholder="Clave: ¿Cuál es nuestro postre favorito?"
-                  className="w-full px-4 py-3 bg-transparent border-b border-border text-center font-sans text-sm placeholder:text-muted/50 focus:outline-none focus:border-foreground transition-colors duration-300"
+                  className="w-full px-4 py-3 bg-transparent border-b border-white/30 text-white text-center font-sans text-sm placeholder:text-white/40 focus:outline-none focus:border-white transition-colors duration-300"
                   autoFocus
                 />
               </div>
@@ -246,7 +256,7 @@ export default function PortalPage() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="font-sans text-sm text-muted"
+                    className="font-sans text-sm text-white/70"
                   >
                     {error}
                   </motion.p>
@@ -256,9 +266,9 @@ export default function PortalPage() {
               <motion.button
                 type="submit"
                 disabled={isLoading || !key}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 1)" }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3 bg-foreground text-background font-sans text-xs tracking-wider hover:bg-foreground/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-white/90 text-[#111] font-sans text-xs tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <motion.span
@@ -278,7 +288,7 @@ export default function PortalPage() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="mt-12 h-px bg-border w-16 mx-auto"
+              className="mt-12 h-px bg-white/20 w-16 mx-auto"
             />
             </motion.div>
           )}
