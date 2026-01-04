@@ -36,7 +36,7 @@ export default function GiftCardPage() {
       category: "gift-card" as const,
       materials: [],
       images: [],
-      tags: ["regalo"],
+      tags: ["regalo"] as ("nuevo" | "bestseller" | "regalo" | "especial")[],
       details: "Esta tarjeta de regalo no tiene fecha de caducidad",
       care: "La tarjeta se enviará por correo electrónico",
       stock: 999,
