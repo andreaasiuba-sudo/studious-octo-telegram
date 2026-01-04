@@ -22,7 +22,7 @@ const questions: Question[] = [
   {
     id: 2,
     question: "¿Cuál es el dulce tradicional que se cocina al fuego en las calles?",
-    options: ["Trdelník", "Macaron francés", "Ćevapi", "Goulash"],
+    options: ["Trdelník", "Baklava", "Ćevapi", "Macaron francés"],
     correctAnswer: 0,
     hint: "Tiene forma de cilindro y suele estar cubierto de azúcar y canela..."
   },
