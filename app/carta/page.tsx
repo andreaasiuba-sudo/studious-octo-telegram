@@ -57,23 +57,23 @@ export default function LetterPage() {
   const isComplete = currentIndex >= letterParagraphs.length;
 
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center px-6 py-24">
+    <main className="min-h-screen bg-background flex items-center justify-center px-6 py-12 md:py-24">
       <div className="fixed inset-0 bg-gradient-to-b from-background via-background to-accent/20 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-prose text-center">
-        <div className="space-y-8 min-h-[400px] flex flex-col justify-center">
+        <div className="space-y-3 md:space-y-5 flex flex-col justify-center py-4 md:py-8">
           <AnimatePresence mode="popLayout">
             {letterParagraphs.slice(0, currentIndex + 1).map((paragraph, index) => (
               <motion.p
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 1.2,
+                  duration: 1,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className={`font-serif text-lg md:text-xl text-foreground leading-relaxed whitespace-pre-line ${
-                  index < currentIndex ? "opacity-30" : "opacity-100"
+                className={`font-serif text-base md:text-lg text-foreground leading-relaxed whitespace-pre-line ${
+                  index < currentIndex ? "opacity-20" : "opacity-100"
                 } transition-opacity duration-1000`}
               >
                 {paragraph}
@@ -82,7 +82,7 @@ export default function LetterPage() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-16 h-24 flex flex-col items-center justify-center">
+        <div className="mt-8 min-h-[120px] flex flex-col items-center justify-center">
           {!isComplete ? (
             <motion.button
               onClick={handleNext}
@@ -92,9 +92,9 @@ export default function LetterPage() {
               className="group flex flex-col items-center gap-2"
             >
               <span className="font-sans text-[10px] tracking-[0.2em] text-muted uppercase">
-                Toca la flecha derecha o haz click
+                Haz click o usa la flecha derecha
               </span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-pulse">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-pulse">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </motion.button>
@@ -102,22 +102,25 @@ export default function LetterPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="space-y-12"
+              className="space-y-8"
             >
-              <div className="h-px bg-border w-32 mx-auto" />
+              <div className="h-px bg-border/50 w-24 mx-auto" />
               
-              <motion.button
-                onClick={() => router.push("/inicio")}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-12 py-4 bg-foreground text-background font-sans text-sm tracking-wider hover:bg-foreground/90 transition-all shadow-xl shadow-foreground/10"
-              >
-                Descubrir el regalo
-              </motion.button>
+              <div className="space-y-6">
+                <motion.button
+                  onClick={() => router.push("/inicio")}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-12 py-4 bg-foreground text-background font-sans text-xs tracking-[0.3em] uppercase hover:bg-foreground/90 transition-all shadow-xl shadow-foreground/10"
+                >
+                  Descubrir el regalo
+                </motion.button>
 
-              <p className="font-serif text-base text-muted italic">
-                Con todo mi cariño
-              </p>
+                <p className="font-serif text-lg text-muted italic">
+                  Con todo mi cariño,<br />
+                  <span className="text-foreground not-italic font-medium tracking-widest uppercase text-sm mt-2 block">David</span>
+                </p>
+              </div>
             </motion.div>
           )}
         </div>
