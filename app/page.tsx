@@ -142,14 +142,17 @@ export default function PortalPage() {
               >
                 ❄️
               </motion.div>
-              <motion.h2
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="font-serif text-3xl md:text-4xl text-white mb-8 tracking-tight drop-shadow-lg"
+                className="mb-12 relative inline-block"
               >
-                Regalo de Navidad 2026
-              </motion.h2>
+                <div className="absolute inset-0 bg-[#3D3D33]/80 blur-md -inset-y-2 -inset-x-4 rounded-sm" />
+                <h2 className="relative font-serif text-4xl md:text-6xl text-white px-8 py-4 tracking-tight leading-none">
+                  Regalo de Navidad 2026
+                </h2>
+              </motion.div>
               
               <motion.button
                 onClick={startCountdown}
@@ -181,15 +184,18 @@ export default function PortalPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="font-sans text-sm tracking-[0.3em] text-white/80 uppercase flex items-center justify-center gap-1"
+                className="relative inline-block mb-12"
               >
-                <span>Preparando regalo para Andrea</span>
-                <motion.span
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  ...
-                </motion.span>
+                <div className="absolute inset-0 bg-[#3D3D33]/70 blur-md -inset-y-2 -inset-x-6 rounded-full" />
+                <div className="relative font-sans text-sm tracking-[0.3em] text-white uppercase flex items-center justify-center gap-1">
+                  <span>Preparando regalo para Andrea</span>
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    ...
+                  </motion.span>
+                </div>
               </motion.div>
               
               {/* Barra de progreso minimalista */}
@@ -222,14 +228,17 @@ export default function PortalPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-8 space-y-3"
+              className="mb-12 relative inline-block mx-auto"
             >
-              <h1 className="font-serif text-2xl md:text-3xl text-white tracking-tight leading-relaxed drop-shadow-md">
-                Esto no es<br />solo un regalo.
-              </h1>
-              <p className="font-serif text-base text-white/80 italic drop-shadow-md">
-                Esto no es solo para ti.
-              </p>
+              <div className="absolute inset-0 bg-[#3D3D33]/85 blur-lg -inset-y-4 -inset-x-8 rounded-lg" />
+              <div className="relative space-y-4">
+                <h1 className="font-serif text-3xl md:text-4xl text-white tracking-tight leading-tight">
+                  Esto no es<br />solo un regalo.
+                </h1>
+                <p className="font-serif text-lg text-white/90 italic">
+                  Esto no es solo para ti.
+                </p>
+              </div>
             </motion.div>
 
             <motion.form
