@@ -149,19 +149,19 @@ export default function CartPage() {
                       <h4 className="font-sans text-sm text-foreground mb-3">
                         Código de descuento
                       </h4>
-                      <div className="flex gap-2 items-stretch">
+                      <div className="flex gap-2 items-center">
                         <input
                           type="text"
                           value={discountCode}
                           onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
                           placeholder="Código"
-                          className="flex-1 px-4 py-2 border border-border text-foreground font-sans text-sm focus:outline-none focus:border-foreground transition-colors"
+                          className="flex-1 h-10 px-4 border border-border text-foreground font-sans text-sm focus:outline-none focus:border-foreground transition-colors"
                         />
                         <motion.button
                           onClick={handleApplyDiscount}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="px-4 py-2 border border-foreground text-foreground font-sans text-sm tracking-wider hover:bg-foreground hover:text-background transition-colors whitespace-nowrap"
+                          className="h-10 px-4 border border-foreground text-foreground font-sans text-sm tracking-wider hover:bg-foreground hover:text-background transition-colors whitespace-nowrap"
                         >
                           Aplicar
                         </motion.button>
