@@ -20,7 +20,6 @@ export default function Header() {
   const itemCount = mounted ? getItemCount() : 0;
 
   const links = [
-    { href: "/inicio", label: "Inicio" },
     { href: "/coleccion", label: "Colección" },
     { href: "/gift-card", label: "Gift Card" },
     { href: "/nuestra-historia", label: "Nuestra Historia" },
