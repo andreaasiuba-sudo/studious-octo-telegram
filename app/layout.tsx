@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import DiscountPopup from "@/components/DiscountPopup";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,15 +16,8 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  title: "PERA Y LIMÓN",
+  title: "PERA Y LIMÓN | Accesorios con Identidad",
   description: "Accesorios que susurran historias. Piezas artesanales que abrazan tu esencia y celebran lo irrepetible que hay en ti.",
-  icons: {
-    icon: [
-      { url: "/favicon.png" },
-      { url: "/images/ChatGPT Image Jan 4, 2026, 03_51_47 PM.png" }
-    ],
-    apple: "/apple-icon.png",
-  },
 };
 
 export default function RootLayout({
@@ -40,8 +31,6 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
-        <DiscountPopup />
-        <Analytics />
       </body>
     </html>
   );

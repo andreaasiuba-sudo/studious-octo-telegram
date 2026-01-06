@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Accordion from "@/components/ui/Accordion";
 import { getProductBySlug, products } from "@/lib/products";
 import { useCartStore } from "@/lib/cart-store";
 import { Product } from "@/lib/types";
-import PragueQuiz from "@/components/PragueQuiz";
 
 export default function ProductPage() {
   const params = useParams();
@@ -18,12 +17,8 @@ export default function ProductPage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-  const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [added, setAdded] = useState(false);
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(false);
-  const [showLightbox, setShowLightbox] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
@@ -32,34 +27,17 @@ export default function ProductPage() {
     if (foundProduct) {
       setProduct(foundProduct);
       setSelectedImageIndex(0);
+      setSelectedMaterial(foundProduct.materials[0]);
       if (foundProduct.sizes && foundProduct.sizes.length > 0) {
         setSelectedSize(foundProduct.sizes[2] || foundProduct.sizes[0]);
       }
     }
   }, [params.slug]);
 
-  useEffect(() => {
-    if (showLightbox || showQuiz) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [showLightbox, showQuiz]);
-
   // Keyboard navigation for images
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!product) return;
-
-      // Close lightbox on ESC
-      if (e.key === "Escape") {
-        setShowLightbox(false);
-      }
-      
-      if (product.images.length <= 1) return;
+      if (!product || product.images.length <= 1) return;
       
       if (e.key === "ArrowLeft") {
         e.preventDefault();
@@ -84,7 +62,7 @@ export default function ProductPage() {
     setIsAdding(true);
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    addItem(product, "hecho-a-mano", selectedSize || undefined, quantity);
+    addItem(product, selectedMaterial, selectedSize || undefined);
 
     setIsAdding(false);
     setAdded(true);
@@ -104,6 +82,10 @@ export default function ProductPage() {
     );
   }
 
+  const materialLabels: Record<string, string> = {
+    "plata-925": "Plata 925",
+    "oro-vermeil": "Oro Vermeil",
+  };
 
   return (
     <>
@@ -137,10 +119,7 @@ export default function ProductPage() {
               className="space-y-4"
             >
               {/* Main Image */}
-              <div 
-                className="aspect-square bg-accent/20 flex items-center justify-center relative overflow-hidden cursor-zoom-in group"
-                onClick={() => setShowLightbox(true)}
-              >
+              <div className="aspect-square bg-accent/20 flex items-center justify-center relative overflow-hidden">
                 {product.isSpecial && (
                   <div className="absolute top-6 left-6 z-10">
                     <span className="px-3 py-1 bg-amber-100 text-amber-800 font-sans text-xs tracking-wider">
@@ -151,15 +130,8 @@ export default function ProductPage() {
                 <img
                   src={product.images[selectedImageIndex]}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 p-3 rounded-full shadow-sm">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-                    </svg>
-                  </span>
-                </div>
               </div>
 
               {/* Thumbnails */}
@@ -207,7 +179,7 @@ export default function ProductPage() {
                   {product.name}
                 </h1>
                 <p className="font-sans text-2xl text-foreground">
-                  {product.slug === "experiencia-misteriosa" ? "????" : `${product.price} €`}
+                  {product.price} €
                 </p>
               </div>
 
@@ -228,6 +200,27 @@ export default function ProductPage() {
                 </div>
               )}
 
+              {/* Material Selector */}
+              <div>
+                <h4 className="font-sans text-sm text-foreground mb-3">
+                  Material
+                </h4>
+                <div className="flex gap-3">
+                  {product.materials.map((material) => (
+                    <button
+                      key={material}
+                      onClick={() => setSelectedMaterial(material)}
+                      className={`px-6 py-3 font-sans text-sm border transition-colors ${
+                        selectedMaterial === material
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border hover:border-foreground"
+                      }`}
+                    >
+                      {materialLabels[material]}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               {/* Size Selector */}
               {product.sizes && product.sizes.length > 0 && (
@@ -253,64 +246,20 @@ export default function ProductPage() {
                 </div>
               )}
 
-              {/* Quantity Selector */}
-              {product.slug !== "experiencia-misteriosa" && (
-                <div>
-                  <h4 className="font-sans text-sm text-foreground mb-3">
-                    Cantidad
-                  </h4>
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                      className="w-10 h-10 border border-border hover:border-foreground transition-colors flex items-center justify-center"
-                      aria-label="Reducir cantidad"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                      </svg>
-                    </button>
-                    <span className="font-sans text-lg text-foreground min-w-[3rem] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => setQuantity((prev) => prev + 1)}
-                      className="w-10 h-10 border border-border hover:border-foreground transition-colors flex items-center justify-center"
-                      aria-label="Aumentar cantidad"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <line x1="12" y1="5" x2="12" y2="19" />
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Add to Cart / Mystery Experience */}
-              {product.slug === "experiencia-misteriosa" ? (
-                <motion.button
-                  onClick={() => setShowQuiz(true)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-accent text-background font-sans text-sm tracking-wider hover:bg-accent/90 transition-colors"
-                >
-                  🔍 Descubrir el Misterio
-                </motion.button>
-              ) : (
-                <motion.button
-                  onClick={handleAddToCart}
-                  disabled={isAdding}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 font-sans text-sm tracking-wider transition-colors ${
-                    added
-                      ? "bg-green-600 text-white"
-                      : "bg-foreground text-background hover:bg-foreground/90"
-                  } disabled:opacity-50`}
-                >
-                  {isAdding ? "Añadiendo..." : added ? "¡Añadido!" : "Añadir al carrito"}
-                </motion.button>
-              )}
+              {/* Add to Cart */}
+              <motion.button
+                onClick={handleAddToCart}
+                disabled={isAdding}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full py-4 font-sans text-sm tracking-wider transition-colors ${
+                  added
+                    ? "bg-green-600 text-white"
+                    : "bg-foreground text-background hover:bg-foreground/90"
+                } disabled:opacity-50`}
+              >
+                {isAdding ? "Añadiendo..." : added ? "¡Añadido!" : "Añadir al carrito"}
+              </motion.button>
 
               {/* Accordions */}
               <div className="pt-8">
@@ -329,137 +278,6 @@ export default function ProductPage() {
           </div>
         </div>
       </main>
-
-      {/* Quiz Modal */}
-      <AnimatePresence>
-        {showQuiz && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
-          >
-            {/* Overlay súper opaco */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-background/98 backdrop-blur-xl"
-              onClick={() => !quizCompleted && setShowQuiz(false)}
-            />
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="relative z-10 w-full flex flex-col items-center justify-center bg-background border border-border shadow-2xl rounded-2xl p-8 md:p-12 max-w-4xl max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="absolute top-4 right-4 z-20">
-                <button
-                  onClick={() => setShowQuiz(false)}
-                  className="text-muted hover:text-foreground transition-colors p-2"
-                  aria-label="Cerrar"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                  </svg>
-                </button>
-              </div>
-              
-              <PragueQuiz 
-                onComplete={() => {
-                  setShowQuiz(false);
-                }} 
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {showLightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "linear" }}
-            className="fixed inset-0 z-[100] bg-background/98 backdrop-blur-md flex items-center justify-center p-4 md:p-8 cursor-zoom-out"
-            onClick={() => setShowLightbox(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center gap-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full h-[75vh] flex items-center justify-center">
-                <img
-                  src={product.images[selectedImageIndex]}
-                  alt={product.name}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
-              
-              {/* Info & Counter */}
-              <div className="flex flex-col items-center gap-1">
-                <p className="font-serif text-xl text-foreground">{product.name}</p>
-                <div className="text-muted font-sans text-[10px] tracking-[0.3em] uppercase">
-                  {selectedImageIndex + 1} / {product.images.length}
-                </div>
-              </div>
-
-              {/* Close button */}
-              <button
-                onClick={() => setShowLightbox(false)}
-                className="absolute top-0 right-0 text-foreground/40 hover:text-foreground transition-colors p-2"
-                aria-label="Cerrar"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-              </button>
-
-              {/* Navigation Arrows in Lightbox */}
-              {product.images.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImageIndex((prev) => 
-                        prev === 0 ? product.images.length - 1 : prev - 1
-                      );
-                    }}
-                    className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors p-2"
-                    aria-label="Anterior"
-                  >
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <polyline points="15 18 9 12 15 6"/>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImageIndex((prev) => 
-                        prev === product.images.length - 1 ? 0 : prev + 1
-                      );
-                    }}
-                    className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground transition-colors p-2"
-                    aria-label="Siguiente"
-                  >
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </button>
-                </>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <Footer />
     </>

@@ -6,7 +6,7 @@ import { CartItem, Product } from "./types";
 
 interface CartState {
   items: CartItem[];
-  addItem: (product: Product, material: string, size?: string, quantity?: number) => void;
+  addItem: (product: Product, material: string, size?: string) => void;
   removeItem: (productId: string, material: string, size?: string) => void;
   updateQuantity: (productId: string, material: string, quantity: number, size?: string) => void;
   clearCart: () => void;
@@ -19,7 +19,7 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
 
-      addItem: (product: Product, material: string, size?: string, quantity: number = 1) => {
+      addItem: (product: Product, material: string, size?: string) => {
         const items = get().items;
         const existingIndex = items.findIndex(
           (item) =>
@@ -30,7 +30,7 @@ export const useCartStore = create<CartState>()(
 
         if (existingIndex > -1) {
           const newItems = [...items];
-          newItems[existingIndex].quantity += quantity;
+          newItems[existingIndex].quantity += 1;
           set({ items: newItems });
         } else {
           set({
@@ -38,7 +38,7 @@ export const useCartStore = create<CartState>()(
               ...items,
               {
                 product,
-                quantity: quantity,
+                quantity: 1,
                 selectedMaterial: material,
                 selectedSize: size,
               },

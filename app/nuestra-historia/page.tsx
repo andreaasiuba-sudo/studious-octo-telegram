@@ -17,7 +17,7 @@ export default function StoryPage() {
             className="text-center mb-20"
           >
             <span className="font-sans text-xs tracking-[0.3em] text-muted uppercase mb-4 block">
-              Desde 2025
+              Desde 2024
             </span>
             <h1 className="font-serif text-5xl md:text-6xl text-foreground">
               Nuestra Historia
@@ -66,13 +66,13 @@ export default function StoryPage() {
             className="bg-pear/10 p-12 md:p-20 text-center space-y-8"
           >
             <h2 className="font-serif text-4xl text-foreground italic">
-              "Cada pieza lleva tu historia."
+              "Menos es más, pero con alma."
             </h2>
             <div className="w-16 h-px bg-border mx-auto" />
             <p className="font-sans text-muted max-w-2xl mx-auto">
-              No creamos accesorios, creamos piezas únicas que abrazan tu esencia 
-              y celebran lo irrepetible que hay en ti. Porque ser diferente 
-              no es una elección, es tu naturaleza.
+              Creemos en el lujo silencioso. En piezas que no gritan para llamar
+              la atención, sino que esperan a ser descubiertas por alguien que
+              valora los detalles y la honestidad de los materiales.
             </p>
           </motion.div>
 
@@ -93,7 +93,9 @@ export default function StoryPage() {
                 directamente desde nuestro taller en Ámsterdam, Países Bajos.
               </p>
               <p className="font-sans text-muted leading-relaxed">
-                Trabajamos con todo tipo de materiales, asegurando que cada pieza que sale de nuestras manos sea digna de llevar, todo con la identidad de quien la elige.
+                Trabajamos con metales nobles, asegurando que cada pieza que sale
+                de nuestras manos sea digna de llevar el nombre de Andrea y la
+                identidad de quien la elige.
               </p>
             </motion.div>
             
@@ -102,13 +104,11 @@ export default function StoryPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="aspect-[4/5] overflow-hidden order-1 md:order-2"
+              className="aspect-[4/5] bg-[#EBE8E0] flex items-center justify-center order-1 md:order-2"
             >
-              <img
-                src="/images/amsterdam-canal.jpg"
-                alt="Canal de Ámsterdam"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-              />
+              <div className="w-32 h-32 rounded-full border border-foreground/10 flex items-center justify-center italic text-foreground/30">
+                Pera y Limón
+              </div>
             </motion.div>
           </div>
         </div>

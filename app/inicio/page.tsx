@@ -8,23 +8,9 @@ import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/shop/ProductCard";
 import { getFeaturedProducts, getSpecialProduct } from "@/lib/products";
 
-const backgroundImages = [
-  "/images/hero-background-v2.png",
-  "/images/hero-background-v3.png",
-  "/images/hero-background-v4.png"
-];
-
 export default function HomePage() {
   const featuredProducts = getFeaturedProducts();
   const specialProduct = getSpecialProduct();
-  const [currentBgIndex, setCurrentBgIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentBgIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <>
@@ -33,64 +19,57 @@ export default function HomePage() {
       <main className="bg-background">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden">
-          {/* Background Image Carousel */}
+          {/* Background Image */}
           <div className="absolute inset-0 z-0">
-            <AnimatePresence initial={false}>
-              <motion.div
-                key={currentBgIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <div className="absolute inset-0 bg-black/45 z-10" />
-                <img
-                  src={backgroundImages[currentBgIndex]}
-                  alt="Pera y Limón"
-                  className="w-full h-full object-cover"
-                  style={{ imageRendering: 'auto' }}
-                />
-              </motion.div>
-            </AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <div className="absolute inset-0 bg-black/60 z-10" />
+              <img
+                src="/images/hero-background-new.jpg"
+                alt="Pera y Limón - Accesorios artesanales"
+                className="w-full h-full object-cover scale-105"
+                style={{ imageRendering: 'high-quality' }}
+              />
+            </motion.div>
           </div>
 
-          <div className="relative z-20 max-w-4xl text-center px-4">
+          <div className="relative z-20 max-w-4xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="space-y-6 mb-12"
+              transition={{ duration: 1.2, ease: "easeOut" }}
             >
-              <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light text-white leading-[1.1] drop-shadow-2xl tracking-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0px 0px 16px rgba(0,0,0,0.6)' }}>
-                PERA Y LIMÓN
-              </h1>
-              
-              <p className="font-serif text-lg md:text-xl lg:text-2xl font-light text-white/80 leading-relaxed drop-shadow-lg max-w-xl mx-auto" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.6), 0px 0px 8px rgba(0,0,0,0.4)' }}>
-                Piezas únicas con alma de Ámsterdam.
-              </p>
+                    <h1 className="font-serif text-2xl md:text-4xl lg:text-5xl font-light text-white mb-8 leading-[1.1] drop-shadow-2xl tracking-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0px 0px 16px rgba(0,0,0,0.6)' }}>
+                      Pera y Limón:
+                      <br />
+                      Piezas únicas con alma de Ámsterdam.
+                    </h1>
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+                    className="font-sans text-base md:text-lg text-white mb-16 max-w-2xl mx-auto font-light leading-relaxed"
+                    style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}
+            >
+              Accesorios artesanales creados para quienes buscan 
+              proyectar una identidad propia e irrepetible.
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-              className="mb-16"
-            >
-              <p className="font-sans text-sm md:text-base text-white/90 max-w-xl mx-auto font-light leading-relaxed" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.5)' }}>
-                Accesorios artesanales creados para quienes buscan proyectar una identidad propia e irrepetible.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.9, ease: "easeOut" }}
             >
               <Link
                 href="/coleccion"
-                className="inline-block px-16 py-5 bg-white/95 text-foreground font-sans text-xs tracking-[0.3em] uppercase hover:bg-white transition-all shadow-2xl backdrop-blur-sm border border-white/20"
-                style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)' }}
+                      className="inline-block px-16 py-5 bg-white/95 text-foreground font-sans text-xs tracking-[0.3em] uppercase hover:bg-white transition-all shadow-2xl backdrop-blur-sm border border-white/20"
+                      style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)' }}
               >
                 Descubrir Colección
               </Link>
@@ -214,7 +193,7 @@ export default function HomePage() {
                   description: "Si no te convence, te devolvemos el dinero.",
                 },
                 {
-                  title: "Envoltorio para regalo",
+                  title: "Empaque para regalo",
                   description: "Cada pieza viene lista para regalar.",
                 },
               ].map((benefit, index) => (
@@ -254,7 +233,7 @@ export default function HomePage() {
                     {/* Image */}
                     <div className="aspect-[4/3] overflow-hidden rounded-sm">
                       <img
-                        src="/images/amsterdam-canal.jpg"
+                        src="/images/amsterdam-canal.jpg?v=1"
                         alt="Canal de Ámsterdam al atardecer"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                       />
@@ -270,7 +249,7 @@ export default function HomePage() {
                           Cada pieza de Pera y Limón es un tributo a la paciencia y el detalle. Todas nuestras piezas se montan cuidadosamente a mano y se envían directamente desde nuestro taller en Ámsterdam, Países Bajos.
                         </p>
                         <p>
-                          Trabajamos con todo tipo de materiales, asegurando que cada pieza que sale de nuestras manos sea digna de llevar, todo con la identidad de quien la elige.
+                          Trabajamos con metales nobles, asegurando que cada pieza que sale de nuestras manos sea digna de llevar el nombre de Andrea y la identidad de quien la elige.
                         </p>
                       </div>
                       <div className="pt-4">
